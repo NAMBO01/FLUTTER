@@ -39,7 +39,7 @@ class MyHomePageState extends State<MyHomePage> {
   TextEditingController X1Controller = new TextEditingController();
   TextEditingController X2Controller = new TextEditingController();
   TextEditingController DeltaController = new TextEditingController();
-
+  bool _isVisible = true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -125,38 +125,44 @@ class MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
-            child: SizedBox(
-              width: double.infinity,
-              height: 45,
-              child: TextField(
-                controller: X1Controller,
-                style: TextStyle(fontSize: 20, color: Colors.black),
-                enabled: false,
-                decoration: InputDecoration(
-                  labelText: " Nghiem X1 ",
-                  labelStyle: TextStyle(color: Colors.grey, fontSize: 15),
+          Visibility(
+            visible: _isVisible,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+              child: SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: TextField(
+                  controller: X1Controller,
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                  enabled: false,
+                  decoration: InputDecoration(
+                    labelText: " Nghiem X1 ",
+                    labelStyle: TextStyle(color: Colors.grey, fontSize: 15),
+                  ),
                 ),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
-            child: SizedBox(
-              width: double.infinity,
-              height: 45,
-              child: TextField(
-                controller: X2Controller,
-                style: TextStyle(fontSize: 20, color: Colors.black),
-                enabled: false,
-                decoration: InputDecoration(
-                  labelText: " Nghiem X2 ",
-                  labelStyle: TextStyle(color: Colors.grey, fontSize: 15),
+          Visibility(
+            visible: _isVisible,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+              child: SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: TextField(
+                  controller: X2Controller,
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                  enabled: false,
+                  decoration: InputDecoration(
+                    labelText: " Nghiem X2 ",
+                    labelStyle: TextStyle(color: Colors.grey, fontSize: 15),
+                  ),
                 ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
@@ -164,15 +170,6 @@ class MyHomePageState extends State<MyHomePage> {
 
   void timNghiemX() {
     setState(() {
-      // if (double.parse(heSoAController.text) == 0) {
-      //   if (double.parse(heSoBController.text) == 0) {
-      //     ketQuaController.text = "Phuong trinh vo nghiem";
-      //   } else {
-      //     ketQuaController.text = (-(double.parse(heSoCController.text) /
-      //             double.parse(heSoBController.text)))
-      //         .toString();
-      //   }
-      // }
       DeltaController.text = ((double.parse(heSoBController.text) *
                   double.parse(heSoBController.text)) -
               (4 *
@@ -189,6 +186,7 @@ class MyHomePageState extends State<MyHomePage> {
                     sqrt(double.parse(DeltaController.text))) /
                 (2 * double.parse(heSoAController.text)))
             .toString();
+        _isVisible = true;
       } else if (double.parse(DeltaController.text) == 0) {
         ketQuaController.text = "Phương trình có nghiệm kép";
         X1Controller.text = ((-(double.parse(heSoBController.text))) /
@@ -197,10 +195,10 @@ class MyHomePageState extends State<MyHomePage> {
         X2Controller.text = ((-(double.parse(heSoBController.text))) /
                 (2 * double.parse(heSoAController.text)))
             .toString();
+        _isVisible = true;
       } else {
         ketQuaController.text = "Phương trình vô nghiệm";
-        X1Controller.text = 0.toString();
-        X2Controller.text = 0.toString();
+        _isVisible = false;
       }
     });
   }
