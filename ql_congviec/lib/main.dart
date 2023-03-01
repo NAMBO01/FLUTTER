@@ -60,6 +60,12 @@ class _MyHomePageState extends State<MyHomePage> {
     tenCongViecController.clear();
   }
 
+  /// _selectDate() is a function that takes a BuildContext as an argument and returns a Future of type
+  /// void. It uses the showDatePicker() function to display a date picker dialog and returns the
+  /// selected date as a DateTime object
+  ///
+  /// Args:
+  ///   context (BuildContext): The context of the widget that is calling the showDatePicker() method.
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -74,6 +80,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  /// _selectedTime() is a function that takes a BuildContext as an argument and returns a Future<void>
+  /// (a Future that doesn't return anything)
+  ///
+  /// Args:
+  ///   context (BuildContext): The current build context.
   Future<void> _selectedTime(BuildContext context) async {
     final TimeOfDay? picked =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -113,6 +124,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: InputDecoration(labelText: "Tên công việc:"),
               ),
             ),
+
+            /// Creating a row with two widgets. The first widget is a RichText widget that displays the
+            /// date. The second widget is a RawMaterialButton that displays a calendar icon. When the
+            /// user clicks on the calendar icon, the _selectDate function is called.
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -149,6 +164,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
+
+            /// Creating a row with two widgets. The first widget is a RichText widget that displays the
+            /// selected time. The second widget is a RawMaterialButton that displays an icon.
             Padding(
               padding: const EdgeInsets.all(8),
               child: Row(
@@ -188,6 +206,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
+
+            /// Creating a list of CongViec objects.
             Expanded(
                 child: Container(
               decoration:
@@ -258,7 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                     });
                   }),
-            )
+            ),
           ],
         ),
       ),
