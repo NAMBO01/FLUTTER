@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lab7_restapi/product/models/Product.dart';
 import 'package:lab7_restapi/product/widgets/productWidget.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
-final URL = "http://172.20.2.235:8080";
+final URL = "http://172.26.208.1:8080";
 void main() {
   runApp(MyApp());
 }
@@ -33,7 +34,7 @@ class _App extends State<MyApp> {
   Future<List<Product>> _fetchAllProducts() async {
     String request = URL + "/api/products";
 
-    Uri uri = Uri.parse("http://172.20.2.235:8080/api/products");
+    Uri uri = Uri.parse("http://172.26.208.1:8080/api/products");
 
     final response = await http.get(uri);
     if (response.statusCode == 200) {

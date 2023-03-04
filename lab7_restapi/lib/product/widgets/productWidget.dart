@@ -17,7 +17,7 @@ class productWidget extends StatelessWidget {
               SizedBox(
                 width: 100,
                 child: ClipRRect(
-                  child: Image.network(product.hinh),
+                  child: Image.network("lib/assets/" + product.hinh),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
