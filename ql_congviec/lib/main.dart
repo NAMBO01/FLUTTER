@@ -33,15 +33,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -60,12 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
     tenCongViecController.clear();
   }
 
-  /// _selectDate() is a function that takes a BuildContext as an argument and returns a Future of type
-  /// void. It uses the showDatePicker() function to display a date picker dialog and returns the
-  /// selected date as a DateTime object
-  ///
-  /// Args:
-  ///   context (BuildContext): The context of the widget that is calling the showDatePicker() method.
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -80,11 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  /// _selectedTime() is a function that takes a BuildContext as an argument and returns a Future<void>
-  /// (a Future that doesn't return anything)
-  ///
-  /// Args:
-  ///   context (BuildContext): The current build context.
   Future<void> _selectedTime(BuildContext context) async {
     final TimeOfDay? picked =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -241,6 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
               ),
             )),
+
             Align(
               alignment: Alignment.centerRight,
               child: RawMaterialButton(
