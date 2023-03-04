@@ -43,34 +43,107 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _heartAnimationController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1200));
     _heartAnimation = Tween(begin: 150.0, end: 170.0).animate(CurvedAnimation(
-        parent: Curves.bounceOut, curve: _heartAnimationController));
+        curve: Curves.bounceOut, parent: _heartAnimationController));
+    _heartAnimationController.addStatusListener((AnimationStatus status) {
+      if (status == AnimationStatus.completed) {
+        _heartAnimationController.repeat(reverse: true);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("lab06_animation"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          firstChild(),
+          SizedBox(
+            height: 50.0,
+          ),
+          secondChild(),
+        ],
       ),
     );
+  }
+
+  Widget firstChild() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        AnimatedBuilder(
+          animation: _arrowAnimationController,
+          builder: (context, child) => Transform.rotate(
+            angle: _arrowAnimation.value,
+            child: Icon(
+              Icons.expand_more,
+              size: 50.0,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        MaterialButton(
+          onPressed: () {
+            _arrowAnimationController.isCompleted
+                ? _arrowAnimationController.reverse()
+                : _arrowAnimationController.forward();
+          },
+          splashColor: Colors.red,
+          color: Colors.green,
+          textColor: Colors.black,
+          padding: const EdgeInsets.all(12.0),
+          child: Text('quay mũi tên'),
+        )
+      ],
+    );
+  }
+
+  Widget secondChild() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Expanded(
+          child: AnimatedBuilder(
+              animation: _heartAnimationController,
+              builder: (context, child) {
+                return Center(
+                  child: Container(
+                    child: Center(
+                      child: Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                        size: _heartAnimation.value,
+                      ),
+                    ),
+                  ),
+                );
+              }),
+        ),
+        Expanded(
+            child: Padding(
+          padding: const EdgeInsets.only(right: 12.0),
+          child: MaterialButton(
+            onPressed: () {
+              _heartAnimationController.forward();
+            },
+            splashColor: Colors.red,
+            padding: const EdgeInsets.all(12.0),
+            color: Colors.red,
+            textColor: Colors.black,
+            child: Text('Cho tim đập'),
+          ),
+        ))
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _arrowAnimationController?.dispose();
+    _heartAnimationController?.dispose();
   }
 }
